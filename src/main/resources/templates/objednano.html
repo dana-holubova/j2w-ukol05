@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="cs" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Registrace na letní dětský tábor</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div class="container">
+    <div class="kosik">
+        <h1>Rekapitulace registrace</h1>
+
+        <!--        Jméno-->
+        <div class="radek">
+            <span>Jméno: </span>
+            <span th:text="${form.jmeno}">jméno</span>
+        </div>
+        <!--        Příjmení -->
+        <div class="radek">
+            <span>Příjmení:</span>
+            <span th:text="${form.prijmeni}">příjmení</span>
+        </div>
+        <!--        Datum narození-->
+<!--        TODO: Chtělo by to naformátovat na české datum. Kde se to dělá? V Registrace form nebo v controlleru? -->
+        <div class="radek">
+            <span>Datum narození:</span>
+            <span th:text="${form.datumNarozeni}"></span>
+        </div>
+        <!--        Pohlaví -->
+        <div class="radek">
+            <span>Pohlaví:</span>
+<!--            <span th:text="${form.pohlavi}">pohlaví</span>-->
+            <span th:if="${form.pohlavi} == ${T(cz.czechitas.java2webapps.ukol5.controller.PohlaviEnum).MUZ}">chlapec</span>
+            <span th:if="${form.pohlavi} == ${T(cz.czechitas.java2webapps.ukol5.controller.PohlaviEnum).ZENA}">dívka</span>
+        </div>
+
+        <!--        Sport -->
+<!--        TODO: vypsat seznam sportů v češtině, oddělený čárkou. Možná by se dal použít th:each? -->
+        <div class="radek">
+        <span>Sport: </span>
+            <span th:if="${form.vybranySport.contains(T(cz.czechitas.java2webapps.ukol5.controller.SportEnum).PLAVANI)}"
+                  th:text="plavání"></span>
+            <span th:if="${form.vybranySport.contains(T(cz.czechitas.java2webapps.ukol5.controller.SportEnum).BEH)}"
+                  th:text="běh"></span>
+            <span th:if="${form.vybranySport.contains(T(cz.czechitas.java2webapps.ukol5.controller.SportEnum).CYKLISTIKA)}"
+                  th:text="cyklistika"></span>
+            <span th:if="${form.vybranySport.contains(T(cz.czechitas.java2webapps.ukol5.controller.SportEnum).FOTBAL)}"
+                  th:text="fotbal"></span>
+            <span th:if="${form.vybranySport.contains(T(cz.czechitas.java2webapps.ukol5.controller.SportEnum).BASKETBAL)}"
+                  th:text="basketbal"></span>
+        </div>
+
+        <!-- turnus -->
+        <div class="radek">
+            <span>Turnus:</span>
+            <span th:if="${form.turnus} == '1'">5. až 11. července</span>
+            <span th:if="${form.turnus} == '2'">12. až 18. července</span>
+            <span th:if="${form.turnus} == '3'">19. až 25. července</span>
+
+        </div>
+
+        <!-- Email-->
+        <div class="radek">
+            <span>Email:</span>
+<!--            z input type text se pošle minimálně prázdný textový řetězec-->
+            <span th:if="${form.email} != ''" th:text="${form.email}">email</span>
+            <em th:if="${form.email} == ''">neuveden</em>
+        </div>
+
+        <!--        Telefon -->
+        <div class="radek">
+            <span>Telefon:</span>
+            <span th:if="${form.telefon} != ''" th:text="${form.telefon}">telefon</span>
+            <em th:if="${form.telefon} == ''">neuveden</em>
+        </div>
+    </div>
+</div>
+</body>
+</html>
